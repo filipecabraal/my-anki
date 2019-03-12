@@ -1,3 +1,6 @@
+#form .link {
+  float: right; }
+
 .carousel {
   position: relative;
   margin: auto;
@@ -53,10 +56,35 @@
     right: 0; }
 
 .buttons {
-  text-align: center; }
+  position: relative;
+  text-align: center;
+  transition: 0.5s; }
   .buttons .btn {
     margin-top: 20px;
     color: #fff;
     font-weight: bold; }
     .buttons .btn:hover {
       color: #fff; }
+  .buttons .link {
+    position: absolute;
+    top: 38px;
+    right: 170px; }
+
+.leave {
+  position: absolute;
+  visibility: hidden;
+  opacity: 0; }
+
+.loader {
+  margin: 0 0 2em;
+  height: 100px;
+  width: 20%;
+  text-align: center;
+  padding: 1em;
+  margin: 0 auto 1em;
+  display: inline-block;
+  vertical-align: top; }
+
+svg path,
+svg rect {
+  fill: #FF6700; }

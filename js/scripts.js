@@ -1,12 +1,5 @@
-//start slick carousel
-$('.carousel').slick({
-  centerMode: true,
-  centerPadding: '60px',
-  slidesToShow: 3,
-  draggable: false,
-  prevArrow: false, 
-  nextArrow: $('.btn-warning') 
-});
+//slick carousel
+
 
 // phrases array
 var phrases = [];
@@ -64,7 +57,13 @@ function clickSpin(){
 	});
 };
 
+// how many cards do you have
+// function fillNumber(){
+// 	var nCards = $('')
+// }
+
 $(function(){
+	phrases = JSON.parse(localStorage.getItem("Phrases"));
 	console.log(phrases);
 
 	// form action
@@ -75,6 +74,46 @@ $(function(){
 			textTranslate = $('#translate').val(); //capturing the value of input
 		addPhrase(textPhrase, textTranslate); //running the function to add phrases
 		clearInputs(); //running the function to clear the inputs
+	});
+
+	$('#see-your-deck').on('click', function(e){
+		e.preventDefault();
+
+		if(!$('#form').hasClass('leave')){
+			$('#form').addClass('leave');
+			$('.loader').removeClass('leave');
+
+			setTimeout(function(){
+				if($('.deck').hasClass('leave')){
+					$('.carousel').slick({
+					  centerMode: true,
+					  centerPadding: '60px',
+					  slidesToShow: 3,
+					  draggable: false,
+					  prevArrow: false, 
+					  nextArrow: $('.btn-warning') 
+					});
+					$('.loader').addClass('leave');	
+					$('.deck').removeClass('leave');
+				}
+			}, 1000);
+		}
+	});
+
+	$('#add-cards').on('click', function(e){
+		e.preventDefault();
+
+		if(!$('.deck').hasClass('leave')){
+			$('.deck').addClass('leave');
+			$('.loader').removeClass('leave');
+
+			setTimeout(function(){
+				if($('#form').hasClass('leave')){
+					$('.loader').addClass('leave');	
+					$('#form').removeClass('leave');
+				}
+			}, 1000);
+		}
 	});
 
 	// randomize background color

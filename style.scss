@@ -1,3 +1,9 @@
+#form{
+	.link{
+		float: right;
+	}
+}
+
 .carousel{
 	position: relative;
 	margin: auto;
@@ -5,7 +11,7 @@
 	width: 70%;
 	border-bottom: 1px solid #e4e4e4;
 	border-radius: 5px;
-
+	
 	.card{
 		border: none;
 		outline: none;
@@ -71,7 +77,9 @@
 }
 
 .buttons{
+	position: relative;
 	text-align: center;
+	transition: 0.5s;
 
 	.btn{
 		margin-top: 20px;
@@ -82,4 +90,33 @@
 			color: #fff;
 		}
 	}
+
+	.link{
+		position: absolute;
+		top: 38px;
+		right: 170px;
+	}
+}
+
+.leave{
+	position: absolute;
+	visibility: hidden;
+	opacity: 0;
+}
+
+// loading
+.loader{
+  margin: 0 0 2em;
+  height: 100px;
+  width: 20%;
+  text-align: center;
+  padding: 1em;
+  margin: 0 auto 1em;
+  display: inline-block;
+  vertical-align: top;
+}
+
+svg path,
+svg rect{
+  fill: #FF6700;
 }
