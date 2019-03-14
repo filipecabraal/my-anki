@@ -5,14 +5,14 @@
 var phrases = [];
 
 // add phrases in array and localstorage
-function addPhrase(n, t){
+function addPhrase(pNormal, pTranslate){
 	if(JSON.parse(localStorage.getItem("Phrases")) != null){ //checking if the arrays already was created
 		phrases = []; //clear the array
 		phrases = JSON.parse(localStorage.getItem("Phrases")); //including in array all phrases of localStorage
-		phrases.push({normal: n, translate: t}); //including the new phrase in array 
+		phrases.push({normal: pNormal, translate: pTranslate}); //including the new phrase in array 
 		localStorage.setItem("Phrases", JSON.stringify(phrases)); //update the localstorage
 	} else {
-		phrases.push({normal: n, translate: t});
+		phrases.push({normal: pNormal, translate: pTranslate});
 		localStorage.setItem("Phrases", JSON.stringify(phrases));
 	}
 };
@@ -57,14 +57,26 @@ function clickSpin(){
 	});
 };
 
-// how many cards do you have
-// function fillNumber(){
-// 	var nCards = $('')
-// }
+// fill the content of your cards
+function popCards(){
+	phrases = JSON.parse(localStorage.getItem("Phrases"));
+
+	for(var i=0;i<phrases.length;i++){
+		console.log(phrases[i].normal);
+		$('.carousel').append('<div class="flip-card"><div class="flip-card-content"><div class="front"><p>'+phrases[i].normal+'</p></div><div class="back"><p>'+phrases[i].translate+'</p></div></div></div>');
+	}
+};
 
 $(function(){
-	phrases = JSON.parse(localStorage.getItem("Phrases"));
-	console.log(phrases);
+	popCards();
+	$('.carousel').slick({
+	  centerMode: true,
+	  centerPadding: '60px',
+	  slidesToShow: 3,
+	  draggable: false,
+	  prevArrow: false, 
+	  nextArrow: $('.btn-warning') 
+	});
 
 	// form action
 	$('#form').on('submit', function(e){
@@ -76,44 +88,32 @@ $(function(){
 		clearInputs(); //running the function to clear the inputs
 	});
 
+	// button to show your deck
 	$('#see-your-deck').on('click', function(e){
 		e.preventDefault();
 
-		if(!$('#form').hasClass('leave')){
-			$('#form').addClass('leave');
-			$('.loader').removeClass('leave');
-
-			setTimeout(function(){
-				if($('.deck').hasClass('leave')){
-					$('.carousel').slick({
-					  centerMode: true,
-					  centerPadding: '60px',
-					  slidesToShow: 3,
-					  draggable: false,
-					  prevArrow: false, 
-					  nextArrow: $('.btn-warning') 
-					});
-					$('.loader').addClass('leave');	
-					$('.deck').removeClass('leave');
-				}
-			}, 1000);
-		}
+		$('#form').hide();
+		$('.loader').show();
+		setTimeout(function(){
+			$('.loader').hide();
+			if($('.deck').hasClass('leave')){
+				$('.deck').removeClass('leave');
+			}
+		}, 1000);
 	});
 
+	// button to add more phrases
 	$('#add-cards').on('click', function(e){
 		e.preventDefault();
 
 		if(!$('.deck').hasClass('leave')){
 			$('.deck').addClass('leave');
-			$('.loader').removeClass('leave');
-
-			setTimeout(function(){
-				if($('#form').hasClass('leave')){
-					$('.loader').addClass('leave');	
-					$('#form').removeClass('leave');
-				}
-			}, 1000);
 		}
+		$('.loader').show();
+		setTimeout(function(){
+			$('.loader').hide();
+			$('#form').show();
+		}, 1000);
 	});
 
 	// randomize background color
